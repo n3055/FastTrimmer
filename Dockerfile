@@ -11,7 +11,7 @@ WORKDIR /app
 COPY . /app
 
 # Install Python dependencies
-RUN pip install --no-cache-dir fastapi uvicorn pandas numpy
+RUN pip install --no-cache-dir fastapi uvicorn pandas numpy gdown
 
 # Download cloudflared tunnel binary
 RUN curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
