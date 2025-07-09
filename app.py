@@ -163,6 +163,25 @@ async def serve_video(filename: str, request: Request):
             media_type="video/mp4"
         )
 
+@app.get("/trimmed/count")
+def count_trimmed_videos():
+    try:
+        files = [f for f in os.listdir(TRIM_FOLDER) if f.endswith(".mp4")]
+        return {"count": len(files)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error counting videos: {str(e)}")
 
+@app.delete("/trimmed/delete-all")
+def delete_all_trimmed_videos():
+    try:
+        deleted_files = []
+        for f in os.listdir(TRIM_FOLDER):
+            path = os.path.join(TRIM_FOLDER, f)
+            if os.path.isfile(path):
+                os.remove(path)
+                deleted_files.append(f)
+        return {"deleted": deleted_files, "message": f"Deleted {len(deleted_files)} videos"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error deleting videos: {str(e)}")
 
 
