@@ -1,0 +1,5 @@
+gdown
+uvicorn
+fastapi
+numpy
+pandas
